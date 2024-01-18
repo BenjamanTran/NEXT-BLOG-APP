@@ -9,7 +9,7 @@ const Hero = () => {
       </div>
       <h1>Hi, I am Ben</h1>
       <p>
-        I blog about web development - especially frontebd frameworks like Next js
+        I blog about web development - especially frontend frameworks like Next js
       </p>
     </section>
   )

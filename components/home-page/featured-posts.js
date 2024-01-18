@@ -1,18 +1,7 @@
-import Image from 'next/image'
-import classes from './hero.module.css'
+import classes from './featured-posts.module.css'
 
-const Hero = () => {
-  return (
-    <section className={classes.hero}>
-      <div className={classes.image}>
-        <Image src='next.svg' alt='An images showing Ben' width={300} height={300} />
-      </div>
-      <h1>Hi, I am Ben</h1>
-      <p>
-        I blog about web development - especially frontend frameworks like Next js
-      </p>
-    </section>
-  )
+export default function FeaturedPosts() {
+  return <session className={classes.lastest}>
+    <h2>Featured Post</h2>
+  </session>
 }
-
-export default Hero

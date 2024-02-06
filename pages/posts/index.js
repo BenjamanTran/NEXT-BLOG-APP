@@ -1,37 +1,17 @@
 import AllPosts from "@/components/posts/all-posts"
-const DUMMY_POSTS = [
-  {
-    slug: 'getting-started-with-nextjs',
-    title: 'Getting started with nextjs',
-    image: 'getting-started-nextjs.png',
-    excerpt: 'Nextjs is a the react framework for production',
-    date: '2024-01-24'
-  },
-  {
-    slug: 'getting-started-with-nextjs',
-    title: 'Getting started with nextjs',
-    image: 'getting-started-nextjs.png',
-    excerpt: 'Nextjs is a the react framework for production',
-    date: '2024-01-24'
-  },
-  {
-    slug: 'getting-started-with-nextjs',
-    title: 'Getting started with nextjs',
-    image: 'getting-started-nextjs.png',
-    excerpt: 'Nextjs is a the react framework for production',
-    date: '2024-01-24'
-  },
-  {
-    slug: 'getting-started-with-nextjs',
-    title: 'Getting started with nextjs',
-    image: 'getting-started-nextjs.png',
-    excerpt: 'Nextjs is a the react framework for production',
-    date: '2024-01-24'
-  }
-]
+import { getAllPosts } from "@/lib/posts-util"
 
-const AllPostsPage = () => {
-  return <AllPosts posts={DUMMY_POSTS} />
+export function getStaticProps() {
+  const allPosts = getAllPosts()
+  return {
+    props: {
+      posts: allPosts
+    }
+  }
+}
+
+const AllPostsPage = (props) => {
+  return <AllPosts posts={props.posts} />
 }
 
 export default AllPostsPage

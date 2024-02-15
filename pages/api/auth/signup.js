@@ -17,12 +17,16 @@ async function handler(req, res) {
   const client = await connectToDatabase()
   const db = client.db()
   const hashedPassword = await hashPassword(password)
-  db.collection('users').insertOne({
-    email: email,
-    password: hashedPassword
-  })
-
-  res.status(201).json({ message: 'Created user!' })
+  const invalidUser = db.collection('users').findOne({ email: email })
+  if (!invalidUser) {
+    db.collection('users').insertOne({
+      email: email,
+      password: hashedPassword
+    })
+    res.status(201).json({ message: 'Created user!' })
+  } else {
+    res.status(409).json({ message: 'Invalid user' })
+  }
 }
 
 export default handler

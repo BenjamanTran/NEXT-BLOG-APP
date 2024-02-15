@@ -3,11 +3,13 @@ import classes from './auth-form.module.css'
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true)
+  const [isInvalidEmail, setInvalidEmail] = useState(false)
   const emailInputRef = useRef()
   const passwordInputRef = useRef()
 
   const switchAuthModelHandler = () => {
     setIsLogin(prevState => !prevState)
+    setInvalidEmail(false)
   }
 
   async function createUser(email, password) {
@@ -20,9 +22,12 @@ const AuthForm = () => {
     })
 
     const data = await response.json()
-
-    if (!response.ok) {
+    if (!response.ok && response.status !== 409) {
       throw new Error(data.message || 'Something went wrong!')
+    }
+
+    if (response.status === 409) {
+      setInvalidEmail(true)
     }
 
     return data
@@ -48,6 +53,7 @@ const AuthForm = () => {
 
   return <section className={classes.auth}>
     <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
+    {isInvalidEmail && <h2>Invalid email</h2>}
     <form onSubmit={submitHandler}>
       <div className={classes.control}>
         <label htmlFor="username" >USERNAME</label>

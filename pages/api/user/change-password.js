@@ -41,7 +41,7 @@ async function handler(req, res) {
 
   const hashedPassword = await hashPassword(newPassword)
 
-  const result = await usersCollection.updateOne({ email: userEmail }, { $set: { password: hashedPassword } })
+  await usersCollection.updateOne({ email: userEmail }, { $set: { password: hashedPassword } })
   client.close()
   res.status(200).json({ message: 'Password updated!' })
 }

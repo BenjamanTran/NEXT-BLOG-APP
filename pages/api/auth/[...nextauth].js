@@ -3,7 +3,9 @@ import { connectToDatabase } from '@/lib/db'
 import NextAuth from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials"
 
-export default NextAuth({
+
+export const authOptions = {
+  secret: process.env.AUTH_SECRET,
   session: {
     jwt: true
   },
@@ -29,5 +31,17 @@ export default NextAuth({
         return { email: user.email }
       }
     })
-  ]
-})
+  ],
+  callbacks: {
+    async jwt({ user, token }) {
+      token.user = { ...user }
+      return token
+    },
+    async session(data) {
+      console.log('session: ', data.session.user)
+      return data.session.user
+    },
+  },
+}
+
+export default NextAuth(authOptions)

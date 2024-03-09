@@ -47,7 +47,8 @@ const AuthForm = () => {
         {
           redirect: false,
           email: enteredEmail,
-          password: enteredPassword
+          password: enteredPassword,
+          callbackUrl: '/'
         })
 
       if (!result.error) {
